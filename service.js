@@ -62,10 +62,6 @@ app.post('/insertreview', function (req, res){
   console.log("POST: ");
   res.header("Access-Control-Allow-Origin", "http://localhost:8000");
   res.header("Access-Control-Allow-Methods", "GET, POST");
-	//res.writeHead(200, {'Content-Type': 'text/plain'});
-  //user = req.body.username;
-  //passwd = req.body.password;
-  //emailid = req.body.email;
   console.log(req.body);
   console.log(req.body.mydata);
   var jsonData = JSON.parse(req.body.mydata);
