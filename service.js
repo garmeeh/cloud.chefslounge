@@ -12,7 +12,9 @@ var application_root = __dirname,
     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
       });
     });
+  collection='';
   });
+
 
   var app = express();
 
