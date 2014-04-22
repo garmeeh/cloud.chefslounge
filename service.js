@@ -12,7 +12,6 @@ var application_root = __dirname,
     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
       });
     });
-  collection='';
   });
 
 
@@ -48,7 +47,7 @@ app.post('/insertreview', function (req, res){
 
   
   db.collection('reviews', function(er, collection) {
-    collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
+    collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(er,rs) {
     });
   });
 
