@@ -20,10 +20,12 @@ app.configure(function () {
 
 
 
-app.get('/api', function (req, res) {
-   res.send('Ecomm API is running');
+// app.get('/api', function (req, res) {
+//    res.send('Ecomm API is running');
+// });
+app.get('/', function(req, res) {
+  res.send('Hello World!');
 });
-
 
 
 app.get('/getangularusers', function (req, res) {
