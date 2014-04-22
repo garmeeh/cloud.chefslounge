@@ -15,23 +15,6 @@ var application_root = __dirname,
 });
 
   var app = express();
-	// var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527"; // "username:password@example.com/mydb"
- //  var collections = ["reviews","bookings"]
- //  var db = require("mongojs").connect(databaseUrl, collections);
-  
-
-// var mongo = require('mongodb');
-
-// var mongoUri = process.env.MONGOLAB_URI ||
-//   process.env.MONGOHQ_URL ||
-//   'mongodb://localhost/mydb';
-
-// mongo.Db.connect(mongoUri, function (err, db) {
-//   db.collection('mydocs', function(er, collection) {
-//     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-//     });
-//   });
-// });
 
 // Config
 
@@ -91,11 +74,17 @@ app.post('/insertreview', function (req, res){
   console.log(jsonData.email);
   console.log(jsonData.email);
 
-
-  db.reviews.save({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(err, saved) {
-  if( err || !saved ) res.end( "Review not saved"); 
-  else res.end( "Review saved");
+  mongo.Db.connect(mongoUri, function (err, db) {
+  db.collection('reviews', function(er, collection) {
+    collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
+    });
+  });
 });
+
+//   db.reviews.save({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(err, saved) {
+//   if( err || !saved ) res.end( "Review not saved"); 
+//   else res.end( "Review saved");
+// });
 });
 
 // Handle Bookings
