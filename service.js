@@ -10,32 +10,57 @@ var application_root = __dirname,
   mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('mydocs', function(er, collection) {
     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-      });
     });
   });
-
+});
 
   var app = express();
 
 // Config
 
 app.configure(function () {
-  app.use(express.bodyParser());
+  app.use(express.json());
+  app.use(express.urlencoded());
+  app.use(express.multipart());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(application_root, "public")));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+
+
+
 app.get('/', function(req, res) {
   res.send('Hello World!');
+});
+
+
+app.get('/getangularusers', function (req, res) {
+	res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+	res.header("Access-Control-Allow-Methods", "GET, POST");
+	db.reviews.find('', function(err, review) {
+	if( err || !review) console.log("No review found");
+	  else 
+	{
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    str='[';
+    review.forEach( function(review) {
+      str = str + '{ "email" : "' + review.email + '","rating" : "' + review.rating + '"},' +'\n';
+    });
+    str = str.trim();
+    str = str.substring(0,str.length-1);
+    str = str + ']';
+    res.end( str);
+	}
+  });
 });
 
 // Handle Reviews
 //==================================//
 app.post('/insertreview', function (req, res){
   console.log("POST: ");
-  res.header("Access-Control-Allow-Origin", "http://localhost:8000/#/tab/review");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8000");
   res.header("Access-Control-Allow-Methods", "GET, POST");
   console.log(req.body);
   console.log(req.body.mydata);
@@ -47,10 +72,15 @@ app.post('/insertreview', function (req, res){
 
   
   db.collection('reviews', function(er, collection) {
-    collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(er,rs) {
+    collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
     });
   });
 
+
+//   db.reviews.save({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(err, saved) {
+//   if( err || !saved ) res.end( "Review not saved"); 
+//   else res.end( "Review saved");
+// });
 });
 
 // Handle Bookings
@@ -66,10 +96,11 @@ app.post('/insertbooking', function (req, res){
   console.log(jsonData.bookingtime);
   console.log(jsonData.bookingguests);
 
-   db.collection('bookings', function(er, collection) {
-    collection.insert({dateOfBooking: jsonData.bookingdate, timeOfBooking: jsonData.bookingtime, noOfGuests: jsonData.bookingguests}, {safe: true}, function(er,rs) {
-    });
-  });
+
+  db.bookings.save({dateOfBooking: jsonData.bookingdate, timeOfBooking: jsonData.bookingtime, noOfGuests: jsonData.bookingguests}, function(err, saved) {
+  if( err || !saved ) res.end( "Booking not saved"); 
+  else res.end( "Booking saved");
+});
 });
 
   
@@ -78,7 +109,4 @@ app.post('/insertbooking', function (req, res){
 
 
 
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+app.listen(process.env.PORT || 5000)
