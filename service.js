@@ -1,7 +1,7 @@
 var application_root = __dirname,
   express = require("express"),
 	path = require("path");
-	var databaseUrl = "mongodb://admin:admin@dbh29.mongolab.com:27297/chefslounge"; // "username:password@example.com/mydb"
+	var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527"; // "username:password@example.com/mydb"
   var collections = ["reviews","bookings"]
   var db = require("mongojs").connect(databaseUrl, collections);
   var app = express();
