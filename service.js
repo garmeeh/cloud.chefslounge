@@ -7,12 +7,12 @@ var application_root = __dirname,
   process.env.MONGOHQ_URL ||
   'mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527';
 
-  mongo.Db.connect(mongoUri, function (err, db) {
-  db.collection('mydocs', function(er, collection) {
-    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-    });
-  });
-});
+//   mongo.Db.connect(mongoUri, function (err, db) {
+//   db.collection('mydocs', function(er, collection) {
+//     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+//     });
+//   });
+// });
 
   var app = express();
 
