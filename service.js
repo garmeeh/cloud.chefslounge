@@ -70,12 +70,12 @@ app.post('/insertreview', function (req, res){
   console.log(jsonData.email);
   console.log(jsonData.email);
 
-  mongo.Db.connect(mongoUri, function (err, db) {
+  
   db.collection('reviews', function(er, collection) {
     collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
     });
   });
-});
+
 
 //   db.reviews.save({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(err, saved) {
 //   if( err || !saved ) res.end( "Review not saved"); 
