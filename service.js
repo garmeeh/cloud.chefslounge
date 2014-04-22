@@ -19,7 +19,6 @@ var application_root = __dirname,
 // Config
 
 app.configure(function () {
-  app.use(allowCrossDomain);
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
