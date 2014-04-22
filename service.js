@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 //==================================//
 app.post('/insertreview', function (req, res){
   console.log("POST: ");
-  res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8000/#/tab/review");
   res.header("Access-Control-Allow-Methods", "GET, POST");
   console.log(req.body);
   console.log(req.body.mydata);
