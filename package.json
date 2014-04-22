@@ -6,7 +6,8 @@
   "dependencies": {
     "mongojs": "~0.7.17",
     "express": "~3.4.8",
-    "http-status": "~0.1.6"
+    "http-status": "~0.1.6",
+    "mongodb": "~1.4.2"
   },
   "devDependencies": {},
   "scripts": {
