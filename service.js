@@ -1,12 +1,37 @@
 var application_root = __dirname,
   express = require("express"),
 	path = require("path");
-	var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527"; // "username:password@example.com/mydb"
-  var collections = ["reviews","bookings"]
-  var db = require("mongojs").connect(databaseUrl, collections);
+  
+  var mongo = require('mongodb');
+  var mongoUri = process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527';
+
+  mongo.Db.connect(mongoUri, function (err, db) {
+  db.collection('mydocs', function(er, collection) {
+    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+    });
+  });
+});
+
   var app = express();
+	// var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527"; // "username:password@example.com/mydb"
+ //  var collections = ["reviews","bookings"]
+ //  var db = require("mongojs").connect(databaseUrl, collections);
+  
 
+// var mongo = require('mongodb');
 
+// var mongoUri = process.env.MONGOLAB_URI ||
+//   process.env.MONGOHQ_URL ||
+//   'mongodb://localhost/mydb';
+
+// mongo.Db.connect(mongoUri, function (err, db) {
+//   db.collection('mydocs', function(er, collection) {
+//     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+//     });
+//   });
+// });
 
 // Config
 
