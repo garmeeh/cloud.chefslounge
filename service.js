@@ -146,24 +146,24 @@ mongo.Db.connect(mongoUri, function(err, database) {
  
 app.get('/getreview', function(req, res) { 
 // console.log("hit get");
- coll.find().toArray(function(err,data){
-  //handle data returned from array
-  res.send({reviewData: data})
- })
-
+ // coll.find().toArray(function(err,data){
+ //  //handle data returned from array
+ //  res.send({reviewData: data})
+ // })
+   coll.find({}, function(err, docs) {
+    docs.each(function(err, doc) {
+      if(doc) {
+        // res.write(JSON.stringify(doc) + "\n");
+        res.send(doc);
+      }
+      else {
+        res.end();
+      }
+    });
+  });
 });
 
-   // coll.find({}, function(err, docs) {
-  //   docs.each(function(err, doc) {
-  //     if(doc) {
-  //       // res.write(JSON.stringify(doc) + "\n");
-  //       res.send(doc);
-  //     }
-  //     else {
-  //       res.end();
-  //     }
-  //   });
-  // });
+
 
 
 
