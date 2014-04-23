@@ -81,7 +81,7 @@ app.post('/insertreview', function (req, res){
     console.log(jsonData.email);
     console.log(jsonData.message);
 
-    res.send(jsonData.email);
+    res.send();
 
     mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('reviews', function(er, collection) {
