@@ -81,12 +81,14 @@ app.post('/insertreview', function (req, res){
     console.log(jsonData.email);
     console.log(jsonData.message);
 
-    //added this
-    res.send();
+    
 
     mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('reviews', function(er, collection) {
-      collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
+      //change jsonData
+      collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,res) {
+          //added this
+          res.send({test: 'successful'});
           });
         });
       });
