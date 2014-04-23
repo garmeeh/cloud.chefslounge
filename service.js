@@ -147,7 +147,11 @@ mongo.Db.connect(mongoUri, function(err, database) {
  
 app.get('/getreview', function(req, res) { 
 
-  console.log("getreview cloud");  
+  console.log("getreview cloud");
+
+  coll.find().toArray(function(err,rev){
+    console.log("getreview array function",rev);
+  })  
   // coll.find({}, function(err, docs) {
   //   docs.each(function(err, doc) {
   //     if(doc) {
