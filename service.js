@@ -62,13 +62,16 @@ app.post('/insertreview', function (req, res){
   console.log("POST: ");
   res.header("Access-Control-Allow-Origin", "http://localhost:8000");
   res.header("Access-Control-Allow-Methods", "GET, POST");
-  console.log(req.body);
-  console.log(req.body.mydata);
+    
+    console.log(req.body);
+    console.log(req.body.mydata);
+  
   var jsonData = JSON.parse(req.body.mydata);
-  console.log(jsonData.rtitle);
-  console.log(jsonData.rating);
-  console.log(jsonData.email);
-  console.log(jsonData.email);
+    
+    console.log(jsonData.rtitle);
+    console.log(jsonData.rating);
+    console.log(jsonData.email);
+    console.log(jsonData.message);
 
     mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('reviews', function(er, collection) {
@@ -76,17 +79,7 @@ app.post('/insertreview', function (req, res){
         });
       });
     });
-    
-  // db.collection('reviews', function(er, collection) {
-  //   collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
-  //   });
-  // });
 
-
-//   db.reviews.save({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, function(err, saved) {
-//   if( err || !saved ) res.end( "Review not saved"); 
-//   else res.end( "Review saved");
-// });
 });
 
 // Handle Bookings
