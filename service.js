@@ -19,13 +19,13 @@ var application_root = __dirname,
     else {
       next();
     }
-};
+  };
 
 
   var app = express();
 
 // Config
-
+//================================\\
 app.configure(function () {
   app.use(allowCrossDomain);
   app.use(express.json());
@@ -36,15 +36,6 @@ app.configure(function () {
   app.use(express.static(path.join(application_root, "public")));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
-
-
-//   mongo.Db.connect(mongoUri, function (err, db) {
-//   db.collection('mydocs', function(er, collection) {
-//     collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-//     });
-//   });
-// });
-
 
 // Test API
 //================================\\
@@ -83,12 +74,14 @@ app.post('/insertreview', function (req, res){
     console.log(req.body);
     console.log(req.body.mydata);
   
-  var jsonData = JSON.parse(req.body.mydata);
+    var jsonData = JSON.parse(req.body.mydata);
     
     console.log(jsonData.rtitle);
     console.log(jsonData.rating);
     console.log(jsonData.email);
     console.log(jsonData.message);
+
+    res.send(jsonData.email);
 
     mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('reviews', function(er, collection) {
@@ -107,6 +100,7 @@ app.post('/insertbooking', function (req, res){
   console.log("POST: ");
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST");
+
 
     console.log(req.body);
     console.log(req.body.bookingdata);
