@@ -145,7 +145,8 @@ mongo.Db.connect(mongoUri, function(err, database) {
 // Reuse database/collection object 
  
 app.get('/getreview', function(req, res) { 
-
+res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Methods", "GET, POST");
  coll.find().toArray(function(err,data){
   //handle data returned from array
   res.send({reviewData: data})
