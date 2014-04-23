@@ -1,6 +1,8 @@
 var application_root = __dirname,
   express = require("express"),
 	path = require("path");
+
+  var cors = require('cors');
   
   var mongo = require('mongodb');
   var mongoUri = process.env.MONGOLAB_URI ||
@@ -141,38 +143,7 @@ app.get('/getreview', function(req, res) {
     });
   });
 });
-// app.get('/getreview', function (req, res) {
-//  res.header("Access-Control-Allow-Origin", "*");
-//  res.header("Access-Control-Allow-Methods", "GET, POST");
 
-//  mongo.Db.connect(mongoUri, function (err, db) {
-//   db.collection('reviews', function(er, collection) {
-//     if( err || !reviews) console.log("No reviews found");
-//      else
-//       {
-//         res.writeHead(200, {'Content-Type': 'application/json'});
-//         str='[';
-//         reviews.forEach( function(reviews) {
-//           str = str + '{ "email" : "' + reviews.email + '","rating" : "' + reviews.rating + '"},' +'\n';
-//         });
-//         str = str.trim();
-//         str = str.substring(0,str.length-1);
-//         str = str + ']';
-//         res.end( str);
-//       }   
-//     });
-//  });//close mongo.Db
-//   });
-
-// {
-//     "email": "test@test.com",
-//     "rating": "5",
-//     "rtitle": "Test Title",
-//     "message": "Test Review",
-//     "_id": {
-//         "$oid": "5357bf272c5f510200760b2b"
-//     }
-// }
  
 
 
