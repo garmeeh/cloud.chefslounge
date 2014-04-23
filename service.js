@@ -110,31 +110,69 @@ app.post('/insertbooking', function (req, res){
 
 });
 
-// Handle Menu Gets
+// Handle Review Gets
 //==================================\\
-app.get('/getmenu', function (req, res) {
- res.header("Access-Control-Allow-Origin", "*");
- res.header("Access-Control-Allow-Methods", "GET, POST");
-
- mongo.Db.connect(mongoUri, function (err, db) {
-  db.collection('reviews', function(er, collection) {
-    if( err || !reviews) console.log("No reviews found");
-     else
-      {
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        str='[';
-        reviews.forEach( function(reviews) {
-          str = str + '{ "email" : "' + reviews.email + '","rating" : "' + reviews.rating + '"},' +'\n';
-        });
-        str = str.trim();
-        str = str.substring(0,str.length-1);
-        str = str + ']';
-        res.end( str);
-      }   
-    });
- });//close mongo.Db
-  });
+var MONGODB_URI = 'mongodb-uri';
+var db;
+var coll;
+ 
+// Initialize connection once
+ 
+mongo.Db.connect(mongoUri, function(err, database) {
+  if(err) throw err;
+ 
+  db = database;
+  coll = db.collection('reviews');
+ 
   
+});
+ 
+// Reuse database/collection object 
+ 
+app.get('/', function(req, res) { 
+  coll.find({}, function(err, docs) {
+    docs.each(function(err, doc) {
+      if(doc) {
+        res.write(JSON.stringify(doc) + "\n");
+      }
+      else {
+        res.end();
+      }
+    });
+  });
+});
+// app.get('/getreview', function (req, res) {
+//  res.header("Access-Control-Allow-Origin", "*");
+//  res.header("Access-Control-Allow-Methods", "GET, POST");
+
+//  mongo.Db.connect(mongoUri, function (err, db) {
+//   db.collection('reviews', function(er, collection) {
+//     if( err || !reviews) console.log("No reviews found");
+//      else
+//       {
+//         res.writeHead(200, {'Content-Type': 'application/json'});
+//         str='[';
+//         reviews.forEach( function(reviews) {
+//           str = str + '{ "email" : "' + reviews.email + '","rating" : "' + reviews.rating + '"},' +'\n';
+//         });
+//         str = str.trim();
+//         str = str.substring(0,str.length-1);
+//         str = str + ']';
+//         res.end( str);
+//       }   
+//     });
+//  });//close mongo.Db
+//   });
+
+// {
+//     "email": "test@test.com",
+//     "rating": "5",
+//     "rtitle": "Test Title",
+//     "message": "Test Review",
+//     "_id": {
+//         "$oid": "5357bf272c5f510200760b2b"
+//     }
+// }
  
 
 
