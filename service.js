@@ -133,7 +133,7 @@ mongo.Db.connect(mongoUri, function (err, db) {
 
     // collection.findOne({id:1}, function(err, item) {});
 
-    res.send(stream);
+    res.send(menus);
 
 
    });
