@@ -125,13 +125,13 @@ mongo.Db.connect(mongoUri, function (err, db) {
 
   // collection.insert(docs, {w:1}, function(err, result) {
 
-    collection.find().toArray(function(err, items) {});
+    var stream =  collection.find().toArray(function(err, items) {});
 
-    var stream = collection.find({id:{$ne:2}}).stream();
-    stream.on("data", function(item) {});
-    stream.on("end", function() {});
+    // var stream = collection.find({id:{$ne:2}}).stream();
+    // stream.on("data", function(item) {});
+    // stream.on("end", function() {});
 
-    collection.findOne({id:1}, function(err, item) {});
+    // collection.findOne({id:1}, function(err, item) {});
 
     res.send(stream);
 
