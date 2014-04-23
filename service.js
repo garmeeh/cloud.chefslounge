@@ -121,7 +121,7 @@ app.post('/insertbooking', function (req, res){
     collection.insert({dateOfBooking: jsonData.bookingdate, timeOfBooking: jsonData.bookingtime, noOfGuests: jsonData.bookingguests}, {safe: true}, function(er,rs) {
         });
       });
-    });
+    //});
 
 });
 
