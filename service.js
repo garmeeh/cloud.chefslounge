@@ -116,57 +116,24 @@ app.get('/getmenu', function (req, res) {
  res.header("Access-Control-Allow-Origin", "*");
  res.header("Access-Control-Allow-Methods", "GET, POST");
 
-// Connect to the db
-mongo.Db.connect(mongoUri, function (err, db) {
-  if(err) { return console.dir(err); }
-
-  var collection = db.collection('menus');
-  // var docs = [{mykey:1}, {mykey:2}, {mykey:3}];
-
-  // collection.insert(docs, {w:1}, function(err, result) {
-
-    var stream =  collection.find().toArray(function(err, items) {});
-
-    // var stream = collection.find({id:{$ne:2}}).stream();
-    // stream.on("data", function(item) {});
-    // stream.on("end", function() {});
-
-    // collection.findOne({id:1}, function(err, item) {});
-
-    console.log(stream);
-
-
-   });
-});
-
-
-
-
-//  db.reviews.find('', function(err, review) {
-//  if( err || !review) console.log("No review found");
-//    else 
-//  {
-//     res.writeHead(200, {'Content-Type': 'application/json'});
-//     str='[';
-//     review.forEach( function(review) {
-//       str = str + '{ "email" : "' + review.email + '","rating" : "' + review.rating + '"},' +'\n';
-//     });
-//     str = str.trim();
-//     str = str.substring(0,str.length-1);
-//     str = str + ']';
-//     res.end( str);
-//  }
-//   });
-// });
-
-//     mongo.Db.connect(mongoUri, function (err, db) {
-//     db.collection('reviews', function(er, collection) {
-//       collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
-//           });
-//         });
-//       });
-
-// });
+ mongo.Db.connect(mongoUri, function (err, db) {
+  db.collection('reviews', function(er, collection) {
+    if( err || !review) console.log("No review found");
+     else
+      {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        str='[';
+        review.forEach( function(review) {
+          str = str + '{ "email" : "' + review.email + '","rating" : "' + review.rating + '"},' +'\n';
+        });
+        str = str.trim();
+        str = str.substring(0,str.length-1);
+        str = str + ']';
+        res.end( str);
+      }   
+    });
+ });//close mongo.Db
+  });
   
  
 
