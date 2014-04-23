@@ -129,7 +129,7 @@ mongo.Db.connect(mongoUri, function(err, database) {
  
 // Reuse database/collection object 
  
-app.get('/', function(req, res) { 
+app.get('/getreview', function(req, res) { 
   coll.find({}, function(err, docs) {
     docs.each(function(err, doc) {
       if(doc) {
