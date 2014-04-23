@@ -37,7 +37,7 @@ app.get('/', function(req, res) {
 
 
 app.get('/getangularusers', function (req, res) {
-	res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Methods", "GET, POST");
 	db.reviews.find('', function(err, review) {
 	if( err || !review) console.log("No review found");
@@ -60,7 +60,7 @@ app.get('/getangularusers', function (req, res) {
 //==================================//
 app.post('/insertreview', function (req, res){
   console.log("POST: ");
-  res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST");
     
     console.log(req.body);
@@ -86,7 +86,7 @@ app.post('/insertreview', function (req, res){
 //==================================//
 app.post('/insertbooking', function (req, res){
   console.log("POST: ");
-  res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST");
   console.log(req.body);
   console.log(req.body.bookingdata);
