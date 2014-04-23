@@ -145,16 +145,10 @@ mongo.Db.connect(mongoUri, function(err, database) {
 // Reuse database/collection object 
  
 app.get('/getreview', function(req, res) { 
-// console.log("hit get");
- // coll.find().toArray(function(err,data){
- //  //handle data returned from array
- //  res.send({reviewData: data})
- // })
-   coll.find({}, function(err, docs) {
+  coll.find({}, function(err, docs) {
     docs.each(function(err, doc) {
       if(doc) {
-        // res.write(JSON.stringify(doc) + "\n");
-        // res.send(doc);
+        res.write(JSON.stringify(doc) + "\n");
       }
       else {
         res.end();
