@@ -88,7 +88,7 @@ app.post('/insertreview', function (req, res){
     db.collection('reviews', function(er, collection) {
       //change jsonData
       collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,res) {
-                    });
+              // console.log("in db");  });
         });
       });
 
@@ -148,7 +148,8 @@ app.get('/getreview', function(req, res) {
   coll.find({}, function(err, docs) {
     docs.each(function(err, doc) {
       if(doc) {
-        res.write(JSON.stringify(doc) + "\n");
+        // res.write(JSON.stringify(doc) + "\n");
+        res.send(doc);
       }
       else {
         res.end();
