@@ -95,6 +95,7 @@ app.post('/insertreview', function (req, res){
     //added this
     res.send({test: 'successful'});
 
+    });
 });
 
 
@@ -121,7 +122,7 @@ app.post('/insertbooking', function (req, res){
     collection.insert({dateOfBooking: jsonData.bookingdate, timeOfBooking: jsonData.bookingtime, noOfGuests: jsonData.bookingguests}, {safe: true}, function(er,rs) {
         });
       });
-    //});
+    });
 
 });
 
