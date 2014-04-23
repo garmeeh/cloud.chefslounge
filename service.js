@@ -154,7 +154,7 @@ app.get('/getreview', function(req, res) {
     docs.each(function(err, doc) {
       if(doc) {
         // res.write(JSON.stringify(doc) + "\n");
-        res.send(doc);
+        // res.send(doc);
       }
       else {
         res.end();
