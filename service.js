@@ -151,6 +151,7 @@ app.get('/getreview', function(req, res) {
 
   coll.find().toArray(function(err,rev){
     console.log("getreview array function",rev);
+    res.send({reviewdata : rev})
   })  
   // coll.find({}, function(err, docs) {
   //   docs.each(function(err, doc) {
