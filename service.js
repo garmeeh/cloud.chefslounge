@@ -118,13 +118,13 @@ app.get('/getmenu', function (req, res) {
 
  mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('reviews', function(er, collection) {
-    if( err || !review) console.log("No review found");
+    if( err || !reviews) console.log("No reviews found");
      else
       {
         res.writeHead(200, {'Content-Type': 'application/json'});
         str='[';
-        review.forEach( function(review) {
-          str = str + '{ "email" : "' + review.email + '","rating" : "' + review.rating + '"},' +'\n';
+        reviews.forEach( function(reviews) {
+          str = str + '{ "email" : "' + reviews.email + '","rating" : "' + reviews.rating + '"},' +'\n';
         });
         str = str.trim();
         str = str.substring(0,str.length-1);
