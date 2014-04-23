@@ -81,12 +81,16 @@ app.post('/insertreview', function (req, res){
     console.log(jsonData.email);
     console.log(jsonData.message);
 
-    res.send();
+    // res.send();
 
     mongo.Db.connect(mongoUri, function (err, db) {
     db.collection('reviews', function(er, collection) {
       collection.insert({email: jsonData.email, rating: jsonData.rating, rtitle: jsonData.rtitle, message: jsonData.message}, {safe: true}, function(er,rs) {
+        if(er){
+          console.log("error wit db");
           });
+      else {res.send();}
+        }
         });
       });
 
