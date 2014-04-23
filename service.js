@@ -21,6 +21,7 @@ var application_root = __dirname,
 // Config
 
 app.configure(function () {
+  app.use(allowCrossDomain);
   app.use(express.json());
   app.use(express.urlencoded());
   app.use(express.multipart());
