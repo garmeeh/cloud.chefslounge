@@ -126,37 +126,39 @@ app.post('/insertbooking', function (req, res){
 
 });
 
-// // Handle Review Gets
-// //==================================\\
-// var MONGODB_URI = 'mongodb-uri';
-// var db;
-// var coll;
+// Handle Review Gets
+//==================================\\
+var MONGODB_URI = 'mongodb-uri';
+var db;
+var coll;
  
-// // Initialize connection once
+// Initialize connection once
  
-// mongo.Db.connect(mongoUri, function(err, database) {
-//   if(err) throw err;
+mongo.Db.connect(mongoUri, function(err, database) {
+  if(err) throw err;
  
-//   db = database;
-//   coll = db.collection('reviews');
+  db = database;
+  coll = db.collection('reviews');
  
   
-// });
+});
  
-// // Reuse database/collection object 
+// Reuse database/collection object 
  
-// app.get('/getreview', function(req, res) { 
-//   coll.find({}, function(err, docs) {
-//     docs.each(function(err, doc) {
-//       if(doc) {
-//         res.write(JSON.stringify(doc) + "\n");
-//       }
-//       else {
-//         res.end();
-//       }
-//     });
-//   });
-// });
+app.get('/getreview', function(req, res) { 
+
+  console.log("getreview cloud");  
+  // coll.find({}, function(err, docs) {
+  //   docs.each(function(err, doc) {
+  //     if(doc) {
+  //       res.write(JSON.stringify(doc) + "\n");
+  //     }
+  //     else {
+  //       res.end();
+  //     }
+  //   });
+  // });
+});
 
 
 
