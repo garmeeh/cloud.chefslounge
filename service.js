@@ -151,47 +151,31 @@ app.post('/insertbooking', function(req, res) {
 
 // Handle Review Gets
 //==================================\\
-// var MONGODB_URI = 'mongodb-uri';
-// var db;
-// var coll;
-
-// // Initialize connection once
-
-// mongo.Db.connect(mongoUri, function(err, database) {
-//   if (err) throw err;
-
-//   db = database;
-//   coll = db.collection('reviews');
 
 
-// });
 
 // Reuse database/collection object 
 
 app.get('/getreview', function(req, res) {
 
-    console.log("getreview cloud");
+  console.log("getreview cloud");
 
-    // coll.find().toArray(function(err, rev) {
-    //   console.log("getreview array function", rev);
-    //   res.send({
-    //     reviewdata: rev
-    //   })
-    // })
+  mongo.Db.connect(mongoUri, function(err, database) {
+    if (err) throw err;
 
-    mongo.Db.connect(mongoUri, function(err, db) {
-        db.collection('bookings', function(er, collection) {
-          collection.find().toArray(function(err, rev) {
-            console.log("getreview array function", rev);
-            res.send({
-              reviewdata: rev
-            })
-          })
-        })
+    db.collection('reviews').find().toArray(function(err, rev) {
+      console.log("getreview array function", rev);
+      res.send({
+        reviewdata: rev
       })
-
-    });
-
+    })
 
 
-  app.listen(process.env.PORT || 5000);
+  });
+
+
+});
+
+
+
+app.listen(process.env.PORT || 5000);
