@@ -170,7 +170,7 @@ app.get('/getreview', function(req, res) {
 
 });
 
-// Handle Sign In
+// Get users list
 //======================//
 app.get('/getusers', function(req, res) {
 
@@ -184,7 +184,28 @@ app.get('/getusers', function(req, res) {
     })
 
 });
+// Handle Sign In
+//======================//
+app.get('/checkusers', function(req, res) {
 
+    console.log("checkuser cloud");
+
+    var jsonData = JSON.parse(req.body.user);
+
+    collusers.find().toArray(function(err, users) {
+        console.log("getusers array function", users);
+
+        for (var i = 0, len = users.length; i < len; i += 1) {
+            if (users.email === user.email && users.password === user.password) {
+                res.send({
+                    access: granted
+                })
+            }
+        }
+
+    })
+
+});
 
 
 app.listen(process.env.PORT || 5000);
