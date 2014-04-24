@@ -108,6 +108,11 @@ app.post('/insertuser', function(req, res) {
           safe: true
         }, function(er, rs) {});
     });
+
+    res.send({
+      test: 'successful'
+    });
+
   });
 
 });
