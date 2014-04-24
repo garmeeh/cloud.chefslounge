@@ -101,19 +101,16 @@ app.post('/insertreview', function(req, res) {
     message: jsonData.message
   }, {
     safe: true
-  }, function(er, res) {
-    res.send({
-    test: 'successful'
-    });
-  });
+  }, function(er, res) {});
 
+  res.send({
+    test: 'successful'
+  });
 
 });
 
 //added this
-// res.send({
-// test: 'successful'
-// });
+
 
 // });
 // });
