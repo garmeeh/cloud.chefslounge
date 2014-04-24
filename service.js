@@ -65,13 +65,13 @@ mongo.Db.connect(mongoUri, function(err, database) {
 app.get('/', function(req, res) {
     res.send('Hello World!');
 });
+// ======  ALL POSTS ARE HERE ======\\
+//==================================================================================\\
 
 // Handle Review Inserts
 //==================================\\
 app.post('/insertreview', function(req, res) {
     console.log("POST: ");
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST");
 
     console.log(req.body);
     console.log(req.body.mydata);
@@ -124,13 +124,10 @@ app.post('/insertuser', function(req, res) {
 });
 
 
-// Handle Bookings
+// Bookings
 //==================================\\
 app.post('/insertbooking', function(req, res) {
     console.log("POST: ");
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Methods", "GET, POST");
-
 
     console.log(req.body);
     console.log(req.body.bookingdata);
@@ -153,7 +150,6 @@ app.post('/insertbooking', function(req, res) {
     res.send({
         bookingentry: 'successful'
     });
-
 
 });
 // ======  ALL GETS ARE HERE ======\\
