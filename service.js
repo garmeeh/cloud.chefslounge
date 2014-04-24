@@ -152,7 +152,7 @@ app.post('/insertbooking', function(req, res) {
     });
 
 });
-// ======  ALL GETS ARE HERE ======\\
+// ======  ALL GETS ARE HERE! ======\\
 //==================================================================================\\
 
 // Review
