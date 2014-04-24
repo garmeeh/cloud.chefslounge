@@ -87,7 +87,7 @@ app.post('/insertreview', function(req, res) {
 });
 // Handle New User
 //==================================\\
-app.post('/createuser', function(req, res) {
+app.post('/insertuser', function(req, res) {
   console.log("POST: ");
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST");
