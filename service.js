@@ -7,6 +7,7 @@ var mongoUri = process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
   'mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527';
 
+// CORS 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -38,8 +39,24 @@ app.configure(function() {
     showStack: true
   }));
 });
+// DB connection and var
+//====================================\\
+var MONGODB_URI = 'mongodb-uri';
+var db;
+var collreview;
+var collusers;
 
-// Test API
+// Initialize connection to database
+mongo.Db.connect(mongoUri, function(err, database) {
+  if (err) throw err;
+
+  db = database;
+  collreview = db.collection('reviews');
+  collusers = db.collection('users');
+
+});
+
+// Test API for app health
 //================================\\
 app.get('/', function(req, res) {
   res.send('Hello World!');
@@ -63,28 +80,43 @@ app.post('/insertreview', function(req, res) {
   console.log(jsonData.message);
   // console.log(jsonData);
 
-  mongo.Db.connect(mongoUri, function(err, db) {
-    db.collection('reviews', function(er, collection) {
-      //change jsonData
-      collection.insert({
-        email: jsonData.email,
-        rating: jsonData.rating,
-        rtitle: jsonData.rtitle,
-        message: jsonData.message
-      }, {
-        safe: true
-      }, function(er, res) {
-        // console.log("in db");  });
-      });
-    });
-
-    //added this
+  // mongo.Db.connect(mongoUri, function(err, db) {
+  //   db.collection('reviews', function(er, collection) {
+  //     //change jsonData
+  //     collection.insert({
+  //       email: jsonData.email,
+  //       rating: jsonData.rating,
+  //       rtitle: jsonData.rtitle,
+  //       message: jsonData.message
+  //     }, {
+  //       safe: true
+  //     }, function(er, res) {
+  //       // console.log("in db");  });
+  //     });
+  //   });
+  collreview.insert({
+    email: jsonData.email,
+    rating: jsonData.rating,
+    rtitle: jsonData.rtitle,
+    message: jsonData.message
+  }, {
+    safe: true
+  }, function(er, res) {
     res.send({
-      test: 'successful'
+    test: 'successful'
     });
-
   });
+
+
 });
+
+//added this
+// res.send({
+// test: 'successful'
+// });
+
+// });
+// });
 // Handle New User
 //==================================\\
 app.post('/insertuser', function(req, res) {
@@ -148,28 +180,11 @@ app.post('/insertbooking', function(req, res) {
   });
 
 });
+// ======  ALL GETS ARE HERE ======\\
+//==================================================================================\\
 
-// Handle Review Gets
+// Review
 //==================================\\
-var MONGODB_URI = 'mongodb-uri';
-var db;
-var collreview;
-var collusers;
-
-// Initialize connection once
-
-mongo.Db.connect(mongoUri, function(err, database) {
-  if (err) throw err;
-
-  db = database;
-  collreview = db.collection('reviews');
-  collusers = db.collection('users');
-
-
-});
-
-// Reuse database/collection object 
-
 app.get('/getreview', function(req, res) {
 
   console.log("getreview cloud");
