@@ -153,7 +153,8 @@ app.post('/insertbooking', function(req, res) {
 //==================================\\
 var MONGODB_URI = 'mongodb-uri';
 var db;
-var coll;
+var collreview;
+var collusers;
 
 // Initialize connection once
 
@@ -161,7 +162,8 @@ mongo.Db.connect(mongoUri, function(err, database) {
   if (err) throw err;
 
   db = database;
-  coll = db.collection('reviews');
+  collreview = db.collection('reviews');
+  collusers = db.collection('users');
 
 
 });
@@ -172,10 +174,25 @@ app.get('/getreview', function(req, res) {
 
   console.log("getreview cloud");
 
-  coll.find().toArray(function(err, rev) {
+  collreview.find().toArray(function(err, rev) {
     console.log("getreview array function", rev);
     res.send({
       reviewdata: rev
+    })
+  })
+
+});
+
+// Handle Sign In
+//======================//
+app.get('/getusers', function(req, res) {
+
+  console.log("getuser cloud");
+
+  collusers.find().toArray(function(err, users) {
+    console.log("getusers array function", users);
+    res.send({
+      userdata: users
     })
   })
 
