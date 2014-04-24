@@ -45,6 +45,8 @@ var MONGODB_URI = 'mongodb-uri';
 var db;
 var collreview;
 var collusers;
+var collbookings;
+
 
 // Initialize connection to database
 mongo.Db.connect(mongoUri, function(err, database) {
@@ -53,6 +55,8 @@ mongo.Db.connect(mongoUri, function(err, database) {
     db = database;
     collreview = db.collection('reviews');
     collusers = db.collection('users');
+    collbookings = db.collection('bookings');
+
 
 });
 
@@ -99,22 +103,17 @@ app.post('/insertreview', function(req, res) {
 //==================================\\
 app.post('/insertuser', function(req, res) {
     console.log("POST: ");
-    //res.header("Access-Control-Allow-Origin", "*");
-    //res.header("Access-Control-Allow-Methods", "GET, POST");
-
-
     console.log(req.body);
     console.log(req.body.userdata);
 
     var jsonData = JSON.parse(req.body.userdata);
 
     console.log(jsonData);
-
+    //db insert
     collusers.insert(
         jsonData, {
             safe: true
         }, function(er, rs) {});
-
 
     res.send({
         userentry: 'successful'
@@ -129,8 +128,8 @@ app.post('/insertuser', function(req, res) {
 //==================================\\
 app.post('/insertbooking', function(req, res) {
     console.log("POST: ");
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST");
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Methods", "GET, POST");
 
 
     console.log(req.body);
@@ -142,17 +141,19 @@ app.post('/insertbooking', function(req, res) {
     console.log(jsonData.bookingtime);
     console.log(jsonData.bookingguests);
 
-    mongo.Db.connect(mongoUri, function(err, db) {
-        db.collection('bookings', function(er, collection) {
-            collection.insert({
-                dateOfBooking: jsonData.bookingdate,
-                timeOfBooking: jsonData.bookingtime,
-                noOfGuests: jsonData.bookingguests
-            }, {
-                safe: true
-            }, function(er, rs) {});
-        });
+
+    collbookings.insert({
+        dateOfBooking: jsonData.bookingdate,
+        timeOfBooking: jsonData.bookingtime,
+        noOfGuests: jsonData.bookingguests
+    }, {
+        safe: true
+    }, function(er, rs) {});
+
+    res.send({
+        bookingentry: 'successful'
     });
+
 
 });
 // ======  ALL GETS ARE HERE ======\\
