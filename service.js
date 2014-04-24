@@ -45,27 +45,6 @@ app.get('/', function(req, res) {
   res.send('Hello World!');
 });
 
-
-// app.get('/getangularusers', function (req, res) {
-// 	res.header("Access-Control-Allow-Origin", "*");
-// 	res.header("Access-Control-Allow-Methods", "GET, POST");
-// 	db.reviews.find('', function(err, review) {
-// 	if( err || !review) console.log("No review found");
-// 	  else 
-// 	{
-//     res.writeHead(200, {'Content-Type': 'application/json'});
-//     str='[';
-//     review.forEach( function(review) {
-//       str = str + '{ "email" : "' + review.email + '","rating" : "' + review.rating + '"},' +'\n';
-//     });
-//     str = str.trim();
-//     str = str.substring(0,str.length-1);
-//     str = str + ']';
-//     res.end( str);
-// 	}
-//   });
-// });
-
 // Handle Review Inserts
 //==================================\\
 app.post('/insertreview', function(req, res) {
@@ -83,8 +62,6 @@ app.post('/insertreview', function(req, res) {
   console.log(jsonData.email);
   console.log(jsonData.message);
   // console.log(jsonData);
-
-
 
   mongo.Db.connect(mongoUri, function(err, db) {
     db.collection('reviews', function(er, collection) {
@@ -108,7 +85,33 @@ app.post('/insertreview', function(req, res) {
 
   });
 });
+// Handle New User
+//==================================\\
+app.post('/createuser', function(req, res) {
+  console.log("POST: ");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST");
 
+
+  console.log(req.body);
+  console.log(req.body.userdata);
+
+  var jsonData = JSON.parse(req.body.userdata);
+
+  console.log(jsonData);
+
+
+  mongo.Db.connect(mongoUri, function(err, db) {
+    db.collection('users', function(er, collection) {
+      collection.insert({
+        jsonData
+      }, {
+        safe: true
+      }, function(er, rs) {});
+    });
+  });
+
+});
 
 
 // Handle Bookings
