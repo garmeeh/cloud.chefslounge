@@ -179,7 +179,8 @@ app.get('/getusers', function(req, res) {
     collusers.find().toArray(function(err, users) {
         console.log("getusers array function", users);
         res.send({
-            userdata: users
+            useremail: users.email,
+            userpass: users.password
         })
     })
 
