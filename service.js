@@ -198,7 +198,7 @@ app.get('/checkusers', function(req, res) {
         for (var i = 0, len = users.length; i < len; i += 1) {
             if (users.email === user.email && users.password === user.password) {
                 res.send({
-                    access: granted
+                    access: users
                 })
             }
         }
