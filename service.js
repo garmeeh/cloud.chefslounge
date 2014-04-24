@@ -186,7 +186,7 @@ app.get('/getusers', function(req, res) {
 });
 // Handle Sign In
 //======================//
-app.get('/checkusers', function(req, res) {
+app.post('/checkusers', function(req, res) {
 
     console.log("checkuser cloud");
 
