@@ -103,11 +103,10 @@ app.post('/createuser', function(req, res) {
 
   mongo.Db.connect(mongoUri, function(err, db) {
     db.collection('users', function(er, collection) {
-      collection.insert({
-        jsonData
-      }, {
-        safe: true
-      }, function(er, rs) {});
+      collection.insert(
+        jsonData, {
+          safe: true
+        }, function(er, rs) {});
     });
   });
 
