@@ -65,6 +65,9 @@ mongo.Db.connect(mongoUri, function(err, database) {
 app.get('/', function(req, res) {
     res.send('Hello World!');
 });
+// ============****************  CUSTOMER APP ****************************** ======\\
+//==================================================================================\\
+
 // ======  ALL POSTS ARE HERE ======\\
 //==================================================================================\\
 
@@ -208,7 +211,28 @@ app.get('/getusers', function(req, res) {
     })
 
 });
+// ============****************  ADMIN APP ****************************** ======\\
+//==================================================================================\\
+// Admin Log In
+//==================================\\
+app.post('/login', function(req, res) {
+    console.log("POST: ");
+    console.log(req.body);
+    console.log(req.body.userdata);
 
+    var jsonData = JSON.parse(req.body.userdata);
 
+    console.log(jsonData);
+    // //db insert
+    // collusers.insert(
+    //     jsonData, {
+    //         safe: true
+    //     }, function(er, rs) {});
+
+    res.send({
+        login: 'successful'
+    });
+
+});
 
 app.listen(process.env.PORT || 5000);
