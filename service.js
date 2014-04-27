@@ -223,7 +223,10 @@ app.post('/login', function(req, res) {
 
     console.log(loginDetails);
 
-    colladmin.find(loginDetails).toArray(function(err, users) {
+    colladmin.find({
+        'username': 'loginDetails.username',
+        'password': 'loginDetails.password'
+    }).toArray(function(err, users) {
         console.log("loginDetails array", users);
 
         res.send({
