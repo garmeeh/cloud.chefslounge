@@ -46,6 +46,7 @@ var db;
 var collreview;
 var collusers;
 var collbookings;
+var colladmin;
 
 
 // Initialize connection to database
@@ -217,21 +218,23 @@ app.get('/getusers', function(req, res) {
 //==================================\\
 app.post('/login', function(req, res) {
     console.log("POST: ");
-    // console.log(req.body);
-    // console.log(req.body.userdata);
 
-    var jsonData = JSON.parse(req.body.userdata);
+    var loginDetails = JSON.parse(req.body.userdata);
 
-    console.log(jsonData);
-    // //db insert
-    // collusers.insert(
-    //     jsonData, {
-    //         safe: true
-    //     }, function(er, rs) {});
+    console.log(loginDetails);
 
-    res.send({
-        login: 'successful'
-    });
+    colladmin.find(loginDetails).toArray(function(err, users) {
+        console.log("loginDetails array", users);
+
+        res.send({
+            userdata: users
+        })
+    })
+
+
+    // res.send({
+    //     login: 'successful'
+    // });
 
 });
 
