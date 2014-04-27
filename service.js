@@ -217,8 +217,8 @@ app.get('/getusers', function(req, res) {
 //==================================\\
 app.post('/login', function(req, res) {
     console.log("POST: ");
-    console.log(req.body);
-    console.log(req.body.userdata);
+    // console.log(req.body);
+    // console.log(req.body.userdata);
 
     var jsonData = JSON.parse(req.body.userdata);
 
