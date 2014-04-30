@@ -240,7 +240,9 @@ app.get('/getreview', function(req, res) {
     collreview.find().toArray(function(err, rev) {
         console.log("Get Review DB", rev);
 
-        res.send(rev)
+        res.send({
+            cloudreviewdata: rev
+        })
     })
 
 });
