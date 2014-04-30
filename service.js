@@ -39,7 +39,7 @@ app.configure(function() {
 // Database
 //====================================\\
 var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527";
-var collections = ["reviews", "users", "bookings", "menus", "admin"]
+var collections = ["reviews", "users", "bookings", "menus", "admin", "messagecenter"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 
@@ -133,6 +133,26 @@ app.post('/login', function(req, res) {
     res.send({
         login: 'successful'
     });
+
+});
+
+//Review Response to message center
+//==================================\\
+app.post('/sendmessage', function(req, res) {
+    console.log("POST: ");
+    console.log(req.body);
+    console.log(req.body.msg);
+
+    var jsonData = JSON.parse(req.body.msg);
+
+    console.log(jsonData);
+
+    db.messagecenter.save(jsonData,
+        function(err, saved) { // Query in MongoDB via Mongo JS Module
+            if (err || !saved) res.end("Message Not Saved");
+            else res.end("Message Saved");
+        });
+
 
 });
 
