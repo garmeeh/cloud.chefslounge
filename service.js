@@ -240,9 +240,7 @@ app.get('/getreview', function(req, res) {
     collreview.find().toArray(function(err, rev) {
         console.log("Get Review DB", rev);
         var reviews = 'reviewdata=' + JSON.stringify(rev);
-        res.send({
-            reviews
-        })
+        res.send(reviews)
     })
 
 });
