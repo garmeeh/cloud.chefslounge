@@ -187,6 +187,19 @@ app.get('/getusers', function(req, res) {
     });
 
 });
+// Get users list
+//======================//
+app.get('/getbookingrequest', function(req, res) {
+
+    console.log("get booking request cloud");
+
+    db.bookings.find(function(err, bookingrequest) {
+        // docs is an array of all the documents in mycollection
+        JSON.stringify(bookingrequest);
+        res.send(bookingrequest)
+    });
+
+});
 
 
 
