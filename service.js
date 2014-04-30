@@ -148,7 +148,7 @@ app.get('/getreview', function(req, res) {
 
 
     db.reviews.find(function(err, rev) {
-        // docs is an array of all the documents in mycollection
+
         res.send({
             reviewdata: rev
         })
@@ -161,13 +161,6 @@ app.get('/getreview', function(req, res) {
 app.get('/getusers', function(req, res) {
 
     console.log("getuser cloud");
-
-    // collusers.find().toArray(function(err, users) {
-    //     console.log("getusers array function", users);
-    //     res.send({
-    //         userdata: users
-    //     })
-    // })
 
     db.users.find(function(err, users) {
         // docs is an array of all the documents in mycollection
