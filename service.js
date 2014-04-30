@@ -141,9 +141,9 @@ app.post('/login', function(req, res) {
 app.post('/sendmessage', function(req, res) {
     console.log("POST: ");
     console.log(req.body);
-    console.log(req.body.msg);
+    console.log(req.body.message);
 
-    var jsonData = JSON.parse(req.body.msg);
+    var jsonData = JSON.parse(req.body.message);
 
     console.log(jsonData);
 
