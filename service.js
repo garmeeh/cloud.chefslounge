@@ -149,9 +149,7 @@ app.get('/getreview', function(req, res) {
 
     db.reviews.find(function(err, rev) {
 
-        res.send({
-            reviewdata: rev
-        })
+        res.send(rev)
     });
 
 });
