@@ -98,7 +98,7 @@ app.post('/insertreview', function(req, res) {
     }, function(er, res) {});
 
     res.send({
-        test: 'successful'
+        review: 'successful'
     });
 
 });
@@ -223,9 +223,27 @@ app.post('/login', function(req, res) {
 
     console.log(loginDetails);
 
+
+
     res.send({
         login: 'successful'
     });
+
+});
+
+// Review Listing
+//==================================\\
+app.get('/getreview', function(req, res) {
+
+    console.log("Get Review from cloud");
+
+    collreview.find().toArray(function(err, rev) {
+        console.log("Get Review DB", rev);
+        var reviews = 'reviewdata=' + JSON.stringify(rev);
+        res.send({
+            reviewdata: reviews
+        })
+    })
 
 });
 
