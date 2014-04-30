@@ -3,9 +3,6 @@ var application_root = __dirname,
     path = require("path");
 var cors = require('cors');
 var mongo = require('mongodb');
-// var mongoUri = process.env.MONGOLAB_URI ||
-//     process.env.MONGOHQ_URL ||
-//     'mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527';
 
 // CORS 
 var allowCrossDomain = function(req, res, next) {
@@ -39,40 +36,19 @@ app.configure(function() {
         showStack: true
     }));
 });
-// DB connection and var
+// Database
 //====================================\\
 var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527";
 var collections = ["reviews", "users", "bookings", "menus", "admin"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 
-// var MONGODB_URI = 'mongodb-uri';
-// var db;
-// var collreview;
-// var collusers;
-// var collbookings;
-// var colladmin;
-
-
-// // Initialize connection to database
-// mongo.Db.connect(mongoUri, function(err, database) {
-//     if (err) throw err;
-
-//     db = database;
-//     collreview = db.collection('reviews');
-//     collusers = db.collection('users');
-//     collbookings = db.collection('bookings');
-
-
-// });
-
 // Test API for app health
 //================================\\
 app.get('/', function(req, res) {
     res.send('Hello World!');
 });
-// ============****************  CUSTOMER APP ****************************** ======\\
-//==================================================================================\\
+
 
 // ======  ALL POSTS ARE HERE ======\\
 //==================================================================================\\
@@ -92,20 +68,6 @@ app.post('/insertreview', function(req, res) {
     console.log(jsonData.email);
     console.log(jsonData.message);
 
-    //db insert
-    // collreview.insert({
-    //     email: jsonData.email,
-    //     rating: jsonData.rating,
-    //     rtitle: jsonData.rtitle,
-    //     message: jsonData.message
-    // }, {
-    //     safe: true
-    // }, function(er, res) {});
-
-    // res.send({
-    //     review: 'successful'
-    // });
-
     db.reviews.save(jsonData,
         function(err, saved) { // Query in MongoDB via Mongo JS Module
             if (err || !saved) res.end("Review not saved");
@@ -124,15 +86,7 @@ app.post('/insertuser', function(req, res) {
     var jsonData = JSON.parse(req.body.userdata);
 
     console.log(jsonData);
-    //db insert
-    // collusers.insert(
-    //     jsonData, {
-    //         safe: true
-    //     }, function(er, rs) {});
 
-    // res.send({
-    //     userentry: 'successful'
-    // });
     db.users.save(jsonData,
         function(err, saved) { // Query in MongoDB via Mongo JS Module
             if (err || !saved) res.end("User not saved");
@@ -157,18 +111,6 @@ app.post('/insertbooking', function(req, res) {
     console.log(jsonData.bookingtime);
     console.log(jsonData.bookingguests);
 
-
-    // collbookings.insert({
-    //     dateOfBooking: jsonData.bookingdate,
-    //     timeOfBooking: jsonData.bookingtime,
-    //     noOfGuests: jsonData.bookingguests
-    // }, {
-    //     safe: true
-    // }, function(er, rs) {});
-
-    // res.send({
-    //     bookingentry: 'successful'
-    // });
     db.bookings.save(jsonData,
         function(err, saved) { // Query in MongoDB via Mongo JS Module
             if (err || !saved) res.end("Booking not saved");
@@ -177,28 +119,23 @@ app.post('/insertbooking', function(req, res) {
 
 });
 
-// Handle Sign In
-//======================//
-// app.post('/checkusers', function(req, res) {
+// Admin Log In
+//==================================\\
+app.post('/login', function(req, res) {
+    console.log("POST: ");
 
-//     console.log("checkuser cloud");
+    var loginDetails = JSON.parse(req.body.userdata);
 
-//     var jsonData = JSON.parse(req.body.user);
+    console.log(loginDetails);
 
-//     collusers.find().toArray(function(err, users) {
-//         console.log("getusers array function", users);
 
-//         for (var i = 0, len = users.length; i < len; i += 1) {
-//             if (users.email === user.email && users.password === user.password) {
-//                 res.send({
-//                     access: users
-//                 })
-//             }
-//         }
 
-//     })
+    res.send({
+        login: 'successful'
+    });
 
-// });
+});
+
 
 // ======  ALL GETS ARE HERE! ======\\
 //==================================================================================\\
@@ -209,12 +146,6 @@ app.get('/getreview', function(req, res) {
 
     console.log("getreview cloud");
 
-    // collreview.find().toArray(function(err, rev) {
-    //     console.log("getreview array function", rev);
-    //     res.send({
-    //         reviewdata: rev
-    //     })
-    // })
 
     db.reviews.find(function(err, rev) {
         // docs is an array of all the documents in mycollection
@@ -246,39 +177,7 @@ app.get('/getusers', function(req, res) {
     });
 
 });
-// ============****************  ADMIN APP ****************************** ======\\
-//==================================================================================\\
-// Admin Log In
-//==================================\\
-app.post('/login', function(req, res) {
-    console.log("POST: ");
-
-    var loginDetails = JSON.parse(req.body.userdata);
-
-    console.log(loginDetails);
 
 
-
-    res.send({
-        login: 'successful'
-    });
-
-});
-
-// Review Listing
-//==================================\\
-// app.get('/getreview', function(req, res) {
-
-//     console.log("Get Review from cloud");
-
-//     collreview.find().toArray(function(err, rev) {
-//         console.log("Get Review DB", rev);
-
-//         res.send({
-//             cloudreviewdata: rev
-//         })
-//     })
-
-// });
 
 app.listen(process.env.PORT || 5000);
