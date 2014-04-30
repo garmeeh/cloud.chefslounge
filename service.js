@@ -3,9 +3,9 @@ var application_root = __dirname,
     path = require("path");
 var cors = require('cors');
 var mongo = require('mongodb');
-var mongoUri = process.env.MONGOLAB_URI ||
-    process.env.MONGOHQ_URL ||
-    'mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527';
+// var mongoUri = process.env.MONGOLAB_URI ||
+//     process.env.MONGOHQ_URL ||
+//     'mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527';
 
 // CORS 
 var allowCrossDomain = function(req, res, next) {
@@ -41,25 +41,30 @@ app.configure(function() {
 });
 // DB connection and var
 //====================================\\
-var MONGODB_URI = 'mongodb-uri';
-var db;
-var collreview;
-var collusers;
-var collbookings;
-var colladmin;
+var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527";
+var collections = ["reviews", "users", "bookings", "menus", "admin"]
+var db = require("mongojs").connect(databaseUrl, collections);
 
 
-// Initialize connection to database
-mongo.Db.connect(mongoUri, function(err, database) {
-    if (err) throw err;
-
-    db = database;
-    collreview = db.collection('reviews');
-    collusers = db.collection('users');
-    collbookings = db.collection('bookings');
+// var MONGODB_URI = 'mongodb-uri';
+// var db;
+// var collreview;
+// var collusers;
+// var collbookings;
+// var colladmin;
 
 
-});
+// // Initialize connection to database
+// mongo.Db.connect(mongoUri, function(err, database) {
+//     if (err) throw err;
+
+//     db = database;
+//     collreview = db.collection('reviews');
+//     collusers = db.collection('users');
+//     collbookings = db.collection('bookings');
+
+
+// });
 
 // Test API for app health
 //================================\\
@@ -88,18 +93,24 @@ app.post('/insertreview', function(req, res) {
     console.log(jsonData.message);
 
     //db insert
-    collreview.insert({
-        email: jsonData.email,
-        rating: jsonData.rating,
-        rtitle: jsonData.rtitle,
-        message: jsonData.message
-    }, {
-        safe: true
-    }, function(er, res) {});
+    // collreview.insert({
+    //     email: jsonData.email,
+    //     rating: jsonData.rating,
+    //     rtitle: jsonData.rtitle,
+    //     message: jsonData.message
+    // }, {
+    //     safe: true
+    // }, function(er, res) {});
 
-    res.send({
-        review: 'successful'
-    });
+    // res.send({
+    //     review: 'successful'
+    // });
+
+    db.reviews.save(jsonData,
+        function(err, saved) { // Query in MongoDB via Mongo JS Module
+            if (err || !saved) res.end("Review not saved");
+            else res.end("Review saved");
+        });
 
 });
 
@@ -114,15 +125,19 @@ app.post('/insertuser', function(req, res) {
 
     console.log(jsonData);
     //db insert
-    collusers.insert(
-        jsonData, {
-            safe: true
-        }, function(er, rs) {});
+    // collusers.insert(
+    //     jsonData, {
+    //         safe: true
+    //     }, function(er, rs) {});
 
-    res.send({
-        userentry: 'successful'
-    });
-
+    // res.send({
+    //     userentry: 'successful'
+    // });
+    db.users.save(jsonData,
+        function(err, saved) { // Query in MongoDB via Mongo JS Module
+            if (err || !saved) res.end("User not saved");
+            else res.end("User saved");
+        });
 
 
 });
@@ -143,17 +158,22 @@ app.post('/insertbooking', function(req, res) {
     console.log(jsonData.bookingguests);
 
 
-    collbookings.insert({
-        dateOfBooking: jsonData.bookingdate,
-        timeOfBooking: jsonData.bookingtime,
-        noOfGuests: jsonData.bookingguests
-    }, {
-        safe: true
-    }, function(er, rs) {});
+    // collbookings.insert({
+    //     dateOfBooking: jsonData.bookingdate,
+    //     timeOfBooking: jsonData.bookingtime,
+    //     noOfGuests: jsonData.bookingguests
+    // }, {
+    //     safe: true
+    // }, function(er, rs) {});
 
-    res.send({
-        bookingentry: 'successful'
-    });
+    // res.send({
+    //     bookingentry: 'successful'
+    // });
+    db.bookings.save(jsonData,
+        function(err, saved) { // Query in MongoDB via Mongo JS Module
+            if (err || !saved) res.end("Booking not saved");
+            else res.end("Booking saved");
+        });
 
 });
 
@@ -189,12 +209,19 @@ app.get('/getreview', function(req, res) {
 
     console.log("getreview cloud");
 
-    collreview.find().toArray(function(err, rev) {
-        console.log("getreview array function", rev);
+    // collreview.find().toArray(function(err, rev) {
+    //     console.log("getreview array function", rev);
+    //     res.send({
+    //         reviewdata: rev
+    //     })
+    // })
+
+    db.reviews.find(function(err, rev) {
+        // docs is an array of all the documents in mycollection
         res.send({
             reviewdata: rev
         })
-    })
+    });
 
 });
 
@@ -204,12 +231,19 @@ app.get('/getusers', function(req, res) {
 
     console.log("getuser cloud");
 
-    collusers.find().toArray(function(err, users) {
-        console.log("getusers array function", users);
+    // collusers.find().toArray(function(err, users) {
+    //     console.log("getusers array function", users);
+    //     res.send({
+    //         userdata: users
+    //     })
+    // })
+
+    db.users.find(function(err, users) {
+        // docs is an array of all the documents in mycollection
         res.send({
-            userdata: users
+            reviewdata: users
         })
-    })
+    });
 
 });
 // ============****************  ADMIN APP ****************************** ======\\
@@ -233,18 +267,18 @@ app.post('/login', function(req, res) {
 
 // Review Listing
 //==================================\\
-app.get('/getreview', function(req, res) {
+// app.get('/getreview', function(req, res) {
 
-    console.log("Get Review from cloud");
+//     console.log("Get Review from cloud");
 
-    collreview.find().toArray(function(err, rev) {
-        console.log("Get Review DB", rev);
+//     collreview.find().toArray(function(err, rev) {
+//         console.log("Get Review DB", rev);
 
-        res.send({
-            cloudreviewdata: rev
-        })
-    })
+//         res.send({
+//             cloudreviewdata: rev
+//         })
+//     })
 
-});
+// });
 
 app.listen(process.env.PORT || 5000);
