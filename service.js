@@ -241,7 +241,7 @@ app.get('/getreview', function(req, res) {
         console.log("Get Review DB", rev);
         var reviews = 'reviewdata=' + JSON.stringify(rev);
         res.send({
-            reviewdata: reviews
+            reviews
         })
     })
 
