@@ -182,6 +182,7 @@ app.get('/getusers', function(req, res) {
 
     db.users.find(function(err, users) {
         // docs is an array of all the documents in mycollection
+        JSON.stringify(users);
         res.send(users)
     });
 
