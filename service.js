@@ -128,10 +128,10 @@ app.post('/login', function(req, res) {
     console.log("aaa", req.body);
     var data = req.body;
 
-    var user = data.user;
-
+    var user = data.username;
+    console.log(user);
     db.admin.find({
-        username: user
+        'username': user
     }, function(err, users) {
 
         console.log("dsds", users);
