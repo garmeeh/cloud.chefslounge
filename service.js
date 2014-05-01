@@ -125,14 +125,12 @@ app.post('/login', function(req, res) {
     console.log("POST: ");
 
     var loginDetails = req.body.userdata;
-    console.log("aaa", loginDetails);
+    console.log("aaa", loginDetails.username);
 
 
     db.admin.find({
-        username: {
-            $gt: loginDetails.username
-        }
-    }).forEach(function(err, doc) {
+        username: loginDetails.username
+    }, function(err, doc) {
         if (!doc) {
             // we visited all docs in the collection
             res.send({
