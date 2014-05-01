@@ -152,7 +152,7 @@ app.post('/login', function(req, res) {
             return;
         } else {
             console.log("else");
-
+            console.log(users);
             //console.log("DOC", users[0]);
             if (user === users[0].username) {
                 console.log("user === users[0].username");
