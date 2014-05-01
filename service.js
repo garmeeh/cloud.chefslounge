@@ -220,6 +220,19 @@ app.get('/getbookingrequest', function(req, res) {
     });
 
 });
+// Get msg 
+//======================//
+app.get('/getmsg', function(req, res) {
+
+    console.log("get msg cloud");
+
+    db.msgcenter.find(function(err, msg) {
+        // docs is an array of all the documents in mycollection
+        JSON.stringify(msg);
+        res.send(msg)
+    });
+
+});
 
 
 
