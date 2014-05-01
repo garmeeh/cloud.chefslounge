@@ -134,13 +134,18 @@ app.post('/login', function(req, res) {
         'username': user
     }, function(err, users) {
 
-        console.log("Found", users[0]);
 
-
+        if (err) {
+            res.send({
+                statusCode: 500,
+                loginErr: 'ERROR!!!'
+            });
+        }
         if (users) {
             // we visited all docs in the collection
-
+            console.log("Found", users[0]);
             if (user === users[0].username) {
+
                 // if (loginDetails.password === doc.password) {
                 res.send({
                     statusCode: 200,
