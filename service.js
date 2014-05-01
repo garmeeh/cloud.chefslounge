@@ -134,15 +134,28 @@ app.post('/login', function(req, res) {
         'username': user
     }, function(err, users) {
 
-        if (users === undefined) {
+        if (err) {
             res.send({
                 statusCode: 500,
-                loginErr: 'No user found!!!'
+                loginErr: 'ERROR!!!'
+            });
+        }
+        if (users === undefined) {
+            // we visited all docs in the collection
+            //console.log("Users", users[0]);
+            console.log("users === undefined");
+
+            res.send({
+                statusCode: 500,
+                loginErr: 'ERROR!!!'
             });
             return;
         } else {
+            console.log("else");
 
+            //console.log("DOC", users[0]);
             if (user === users[0].username) {
+                console.log("user === users[0].username");
 
                 // if (loginDetails.password === doc.password) {
                 res.send({
@@ -154,36 +167,6 @@ app.post('/login', function(req, res) {
                 });
             }
         }
-
-
-
-        // if (err) {
-        //     res.send({
-        //         statusCode: 500,
-        //         loginErr: 'ERROR!!!'
-        //     });
-        // }
-        // if (users != undefined) {
-        //     // we visited all docs in the collection
-        //     console.log("Users", users[0]);
-        //     if (user === users[0].username) {
-
-        //         // if (loginDetails.password === doc.password) {
-        //         res.send({
-        //             statusCode: 200,
-        //             msg: 'successful',
-        //             payload: {
-        //                 userData: users[0]
-        //             }
-        //         });
-        //     }
-        // } else {
-        //     //console.log("DOC", users[0]);
-        //     res.send({
-        //         statusCode: 500,
-        //         loginErr: 'Username not found!!!'
-        //     });
-        // }
     });
 });
 
