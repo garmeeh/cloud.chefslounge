@@ -138,8 +138,9 @@ app.post('/login', function(req, res) {
         console.log("err", err)
         console.log("user", users)
 
-        if (users && users.length >= 1) {
-            if (users[0].username === user) {
+        if (users.length >= 1) {
+            var name = users[0].username;
+            if (name == user) {
                 console.log("user === users[0].username");
 
                 // if (loginDetails.password === doc.password) {
@@ -151,7 +152,7 @@ app.post('/login', function(req, res) {
                     }
                 });
             }
-        } else if (!users && users.length === 0) {
+        } else if (!users || users.length === 0) {
 
             console.log("users undefined")
             // res.send({
@@ -160,6 +161,7 @@ app.post('/login', function(req, res) {
             // });
 
         } else {
+            console.log("404");
             res.send({
                 statusCode: 404,
                 loginErr: 'ERROR!!!'
