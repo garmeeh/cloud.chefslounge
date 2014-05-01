@@ -144,17 +144,17 @@ app.post('/login', function(req, res) {
         if (users) {
             // we visited all docs in the collection
             console.log("Found", users[0]);
-            if (user === users[0].username) {
+            // if (user === users[0].username) {
 
-                // if (loginDetails.password === doc.password) {
-                res.send({
-                    statusCode: 200,
-                    msg: 'successful',
-                    payload: {
-                        userData: users[0]
-                    }
-                });
-            }
+            //     // if (loginDetails.password === doc.password) {
+            //     res.send({
+            //         statusCode: 200,
+            //         msg: 'successful',
+            //         payload: {
+            //             userData: users[0]
+            //         }
+            //     });
+            // }
         } else {
             //console.log("DOC", users[0]);
             res.send({
