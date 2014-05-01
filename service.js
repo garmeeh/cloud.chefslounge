@@ -139,6 +139,7 @@ app.post('/login', function(req, res) {
                 statusCode: 500,
                 loginErr: 'No user found!!!'
             });
+            return;
         } else {
 
             if (user === users[0].username) {
