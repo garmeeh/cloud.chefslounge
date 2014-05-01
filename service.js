@@ -3,6 +3,7 @@ var application_root = __dirname,
     path = require("path");
 var cors = require('cors');
 var mongo = require('mongodb');
+var app = express();
 
 // CORS 
 var allowCrossDomain = function(req, res, next) {
@@ -19,7 +20,6 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 
-var app = express();
 
 // Config
 //================================\\
@@ -30,7 +30,7 @@ app.configure(function() {
     app.use(express.multipart());
     app.use(express.methodOverride());
     app.use(app.router);
-    app.use(express.static(path.join(application_root, "public")));
+    // app.use(express.static(path.join(application_root, "public")));
     app.use(express.errorHandler({
         dumpExceptions: true,
         showStack: true
@@ -124,10 +124,18 @@ app.post('/insertbooking', function(req, res) {
 app.post('/login', function(req, res) {
     console.log("POST: ");
 
-    var loginDetails = JSON.parse(req.body.userdata);
-
+    var loginDetails = req.body.userdata;
     console.log(loginDetails);
 
+    db.admin.find({
+        username: loginDetails.username
+    }, function(err, docs) {
+        if (err) {
+            console.log("ERR", err)
+            return;
+        }
+        console.log("DOC", docs);
+    });
 
 
     res.send({
