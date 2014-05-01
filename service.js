@@ -127,9 +127,10 @@ app.post('/login', function(req, res) {
     // var loginDetails = req.sbody.userdata;
     console.log("aaa", req.body);
 
+    var user = req.body.userdata.username;
 
     db.admin.find({
-        username: loginDetails.username
+        username: user
     }, function(err, doc) {
         if (!doc) {
             // we visited all docs in the collection
