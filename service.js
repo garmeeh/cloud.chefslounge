@@ -155,10 +155,10 @@ app.post('/login', function(req, res) {
         } else if (!users || users.length === 0) {
 
             console.log("users undefined")
-            // res.send({
-            //     statusCode: 500,
-            //     loginErr: 'ERROR!!!'
-            // });
+            res.send({
+                statusCode: 500,
+                loginErr: 'ERROR!!!'
+            });
 
         } else {
             console.log("404");
