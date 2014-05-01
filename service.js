@@ -134,29 +134,29 @@ app.post('/login', function(req, res) {
         'username': user
     }, function(err, users) {
 
-        console.log("dsds", users);
-        // if (!doc) {
-        //     // we visited all docs in the collection
-        //     res.send({
-        //         statusCode: 500,
-        //         loginErr: 'Username not found!!!'
-        //     });
-        // } else {
-        //     console.log("DOC", doc);
+        console.log("Found", users[0]);
+        if (err) {
+            // we visited all docs in the collection
+            res.send({
+                statusCode: 500,
+                loginErr: 'Username not found!!!'
+            });
+        } else {
+            console.log("DOC", users[0]);
 
-        //     if (user === doc.username) {
-        //         // if (loginDetails.password === doc.password) {
-        //         res.send({
-        //             statusCode: 200,
-        //             msg: 'successful',
-        //             payload: {
-        //                 userData: doc
-        //             }
-        //         });
-        //         // }
-        //     }
-        // }
-        // doc is a document in the collection
+            if (user === users[0].username) {
+                // if (loginDetails.password === doc.password) {
+                res.send({
+                    statusCode: 200,
+                    msg: 'successful',
+                    payload: {
+                        userData: users[0]
+                    }
+                });
+                // }
+            }
+        }
+        doc is a document in the collection
     });
 });
 
