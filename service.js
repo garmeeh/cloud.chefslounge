@@ -258,7 +258,7 @@ app.get('/getoffer', function(req, res) {
 
     console.log("get offer cloud");
 
-    db.msgcenter.find(function(err, off) {
+    db.offers.find(function(err, off) {
         // docs is an array of all the documents in mycollection
         JSON.stringify(off);
         res.send(off)
