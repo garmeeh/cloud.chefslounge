@@ -126,7 +126,7 @@ app.post('/login', function(req, res) {
 
     // var loginDetails = req.sbody.userdata;
     console.log("aaa", req.body);
-
+    var d = JSON.parse(req.body);
     var data = req.body.userdata;
     var user = data.username;
     console.log(user, JSON.stringify(user));
