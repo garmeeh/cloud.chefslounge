@@ -134,16 +134,13 @@ app.post('/login', function(req, res) {
         'username': user
     }, function(err, users) {
 
-
-        if (err) {
+        if (users === undefined) {
             res.send({
                 statusCode: 500,
-                loginErr: 'ERROR!!!'
+                loginErr: 'No user found!!!'
             });
-        }
-        if (users != undefined) {
-            // we visited all docs in the collection
-            console.log("Users", users[0]);
+        } else {
+
             if (user === users[0].username) {
 
                 // if (loginDetails.password === doc.password) {
@@ -155,13 +152,37 @@ app.post('/login', function(req, res) {
                     }
                 });
             }
-        } else {
-            //console.log("DOC", users[0]);
-            res.send({
-                statusCode: 500,
-                loginErr: 'Username not found!!!'
-            });
         }
+
+
+
+        // if (err) {
+        //     res.send({
+        //         statusCode: 500,
+        //         loginErr: 'ERROR!!!'
+        //     });
+        // }
+        // if (users != undefined) {
+        //     // we visited all docs in the collection
+        //     console.log("Users", users[0]);
+        //     if (user === users[0].username) {
+
+        //         // if (loginDetails.password === doc.password) {
+        //         res.send({
+        //             statusCode: 200,
+        //             msg: 'successful',
+        //             payload: {
+        //                 userData: users[0]
+        //             }
+        //         });
+        //     }
+        // } else {
+        //     //console.log("DOC", users[0]);
+        //     res.send({
+        //         statusCode: 500,
+        //         loginErr: 'Username not found!!!'
+        //     });
+        // }
     });
 });
 
