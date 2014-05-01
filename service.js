@@ -141,9 +141,9 @@ app.post('/login', function(req, res) {
                 loginErr: 'ERROR!!!'
             });
         }
-        if (users) {
+        if (users === undefined) {
             // we visited all docs in the collection
-            console.log("Found", users[0]);
+            console.log("Users", users[0]);
             // if (user === users[0].username) {
 
             //     // if (loginDetails.password === doc.password) {
