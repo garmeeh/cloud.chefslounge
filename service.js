@@ -130,29 +130,31 @@ app.post('/login', function(req, res) {
     var user = req.body.userdata.username;
 
     db.admin.find({
-        username: user
-    }, function(err, doc) {
-        if (!doc) {
-            // we visited all docs in the collection
-            res.send({
-                statusCode: 500,
-                loginErr: 'Username not found!!!'
-            });
-        } else {
-            console.log("DOC", doc);
+        username: "admin"
+    }, function(err, users) {
 
-            if (user === doc.username) {
-                // if (loginDetails.password === doc.password) {
-                res.send({
-                    statusCode: 200,
-                    msg: 'successful',
-                    payload: {
-                        userData: doc
-                    }
-                });
-                // }
-            }
-        }
+        console.log("dsds", users);
+        // if (!doc) {
+        //     // we visited all docs in the collection
+        //     res.send({
+        //         statusCode: 500,
+        //         loginErr: 'Username not found!!!'
+        //     });
+        // } else {
+        //     console.log("DOC", doc);
+
+        //     if (user === doc.username) {
+        //         // if (loginDetails.password === doc.password) {
+        //         res.send({
+        //             statusCode: 200,
+        //             msg: 'successful',
+        //             payload: {
+        //                 userData: doc
+        //             }
+        //         });
+        //         // }
+        //     }
+        // }
         // doc is a document in the collection
     });
 });
