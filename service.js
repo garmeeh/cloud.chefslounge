@@ -39,7 +39,7 @@ app.configure(function() {
 // Database
 //====================================\\
 var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527";
-var collections = ["reviews", "users", "bookings", "menus", "admin", "reviewresponse", "msgcenter"]
+var collections = ["reviews", "users", "bookings", "menus", "admin", "reviewresponse", "msgcenter", "offers"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 
@@ -175,6 +175,25 @@ app.post('/sendmsg', function(req, res) {
 
 
 });
+//Offer
+//==================================\\
+app.post('/newoffer', function(req, res) {
+    console.log("POST: ");
+    console.log(req.body);
+    console.log(req.body.offer);
+
+    var jsonData = JSON.parse(req.body.offer);
+
+    console.log(jsonData);
+
+    db.offers.save(jsonData,
+        function(err, saved) { // Query in MongoDB via Mongo JS Module
+            if (err || !saved) res.end("Message Not Saved");
+            else res.end("Message Saved");
+        });
+
+
+});
 
 
 // ======  ALL GETS ARE HERE! ======\\
@@ -230,6 +249,19 @@ app.get('/getmsg', function(req, res) {
         // docs is an array of all the documents in mycollection
         JSON.stringify(msg);
         res.send(msg)
+    });
+
+});
+// Get offer 
+//======================//
+app.get('/getoffer', function(req, res) {
+
+    console.log("get offer cloud");
+
+    db.msgcenter.find(function(err, off) {
+        // docs is an array of all the documents in mycollection
+        JSON.stringify(off);
+        res.send(off)
     });
 
 });
