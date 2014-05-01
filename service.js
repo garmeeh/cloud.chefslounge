@@ -124,8 +124,8 @@ app.post('/insertbooking', function(req, res) {
 app.post('/login', function(req, res) {
     console.log("POST: ");
 
-    var loginDetails = req.body.userdata;
-    console.log("aaa", req, req.body.userdata);
+    // var loginDetails = req.sbody.userdata;
+    console.log("aaa", JSON.stringify(req));
 
 
     db.admin.find({
