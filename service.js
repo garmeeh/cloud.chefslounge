@@ -161,9 +161,9 @@ app.post('/reviewresponse', function(req, res) {
 app.post('/sendmsg', function(req, res) {
     console.log("POST: ");
     console.log(req.body);
-    console.log(req.body.message);
+    console.log(req.body.enquiry);
 
-    var jsonData = JSON.parse(req.body.message);
+    var jsonData = JSON.parse(req.body.enquiry);
 
     console.log(jsonData);
 
