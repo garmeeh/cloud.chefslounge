@@ -127,8 +127,9 @@ app.post('/login', function(req, res) {
     // var loginDetails = req.sbody.userdata;
     console.log("aaa", req.body);
 
-    var user = req.body.userdata.username;
-    console.log(JSON.stringify(user));
+    var data = req.body.userdata;
+    var user = data.username;
+    console.log(user, JSON.stringify(user));
     db.admin.find({
         username: "admin"
     }, function(err, users) {
