@@ -134,7 +134,7 @@ app.post('/login', function(req, res) {
         'username': user
     }, function(err, users) {
 
-        if (err || users === undefined) {
+        if (users === undefined) {
             res.send({
                 statusCode: 500,
                 loginErr: 'ERROR!!!'
