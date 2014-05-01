@@ -135,14 +135,10 @@ app.post('/login', function(req, res) {
     }, function(err, users) {
 
         console.log("Found", users[0]);
-        if (!users) {
+
+
+        if (users) {
             // we visited all docs in the collection
-            res.send({
-                statusCode: 500,
-                loginErr: 'Username not found!!!'
-            });
-        } else {
-            //console.log("DOC", users[0]);
 
             if (user === users[0].username) {
                 // if (loginDetails.password === doc.password) {
@@ -153,10 +149,14 @@ app.post('/login', function(req, res) {
                         userData: users[0]
                     }
                 });
-                // }
             }
+        } else {
+            //console.log("DOC", users[0]);
+            res.send({
+                statusCode: 500,
+                loginErr: 'Username not found!!!'
+            });
         }
-
     });
 });
 
