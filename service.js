@@ -180,9 +180,9 @@ app.post('/sendmsg', function(req, res) {
 app.post('/newoffer', function(req, res) {
     console.log("POST: ");
     console.log(req.body);
-    console.log(req.body.offer);
+    console.log(req.body.offferdata);
 
-    var jsonData = JSON.parse(req.body.offer);
+    var jsonData = JSON.parse(req.body.offferdata);
 
     console.log(jsonData);
 
