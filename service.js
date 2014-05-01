@@ -39,7 +39,7 @@ app.configure(function() {
 // Database
 //====================================\\
 var databaseUrl = "mongodb://admin:admin@ds037758.mongolab.com:37758/heroku_app24428527";
-var collections = ["reviews", "users", "bookings", "menus", "admin", "messagecenter"]
+var collections = ["reviews", "users", "bookings", "menus", "admin", "reviewresponse", "msgcenter"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 
@@ -136,9 +136,9 @@ app.post('/login', function(req, res) {
 
 });
 
-//Review Response to message center
+//Review Response
 //==================================\\
-app.post('/sendmessage', function(req, res) {
+app.post('/reviewresponse', function(req, res) {
     console.log("POST: ");
     console.log(req.body);
     console.log(req.body.message);
@@ -147,7 +147,27 @@ app.post('/sendmessage', function(req, res) {
 
     console.log(jsonData);
 
-    db.messagecenter.save(jsonData,
+    db.reviewresponse.save(jsonData,
+        function(err, saved) { // Query in MongoDB via Mongo JS Module
+            if (err || !saved) res.end("Message Not Saved");
+            else res.end("Message Saved");
+        });
+
+
+});
+
+//Msg Center
+//==================================\\
+app.post('/sendmsg', function(req, res) {
+    console.log("POST: ");
+    console.log(req.body);
+    console.log(req.body.message);
+
+    var jsonData = JSON.parse(req.body.message);
+
+    console.log(jsonData);
+
+    db.msgcenter.save(jsonData,
         function(err, saved) { // Query in MongoDB via Mongo JS Module
             if (err || !saved) res.end("Message Not Saved");
             else res.end("Message Saved");
