@@ -156,7 +156,7 @@ app.post('/login', function(req, res) {
                 // }
             }
         }
-        doc is a document in the collection
+
     });
 });
 
