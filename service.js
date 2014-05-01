@@ -134,34 +134,47 @@ app.post('/login', function(req, res) {
         'username': user
     }, function(err, users) {
 
-
-        if (err) {
+        if (err || !users) {
             res.send({
                 statusCode: 500,
                 loginErr: 'ERROR!!!'
             });
-        }
-        if (users === undefined) {
-            // we visited all docs in the collection
-            console.log("Users", users[0]);
-            // if (user === users[0].username) {
-
-            //     // if (loginDetails.password === doc.password) {
-            //     res.send({
-            //         statusCode: 200,
-            //         msg: 'successful',
-            //         payload: {
-            //             userData: users[0]
-            //         }
-            //     });
-            // }
         } else {
-            //console.log("DOC", users[0]);
-            res.send({
-                statusCode: 500,
-                loginErr: 'Username not found!!!'
-            });
+            if (user === users[0].username) {
+
+                // if (loginDetails.password === doc.password) {
+                res.send({
+                    statusCode: 200,
+                    msg: 'successful',
+                    payload: {
+                        userData: users[0]
+                    }
+                });
+            }
+
         }
+
+        // if (users === undefined) {
+        //     // we visited all docs in the collection
+        //     console.log("Users", users[0]);
+        //     if (user === users[0].username) {
+
+        //         // if (loginDetails.password === doc.password) {
+        //         res.send({
+        //             statusCode: 200,
+        //             msg: 'successful',
+        //             payload: {
+        //                 userData: users[0]
+        //             }
+        //         });
+        //     }
+        // } else {
+        //     //console.log("DOC", users[0]);
+        //     res.send({
+        //         statusCode: 500,
+        //         loginErr: 'Username not found!!!'
+        //     });
+        // }
     });
 });
 
