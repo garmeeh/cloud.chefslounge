@@ -141,7 +141,7 @@ app.post('/login', function(req, res) {
         } else {
             console.log("DOC", doc);
 
-            if (loginDetails.username === doc.username) {
+            if (user === doc.username) {
                 // if (loginDetails.password === doc.password) {
                 res.send({
                     statusCode: 200,
