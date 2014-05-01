@@ -129,32 +129,17 @@ app.post('/login', function(req, res) {
     var data = req.body;
 
     var user = data.username;
+
     console.log(user);
+
     db.admin.find({
         'username': user
     }, function(err, users) {
+        console.log("err", err)
+        console.log("user", users)
 
-        if (err) {
-            res.send({
-                statusCode: 500,
-                loginErr: 'ERROR!!!'
-            });
-        }
-        if (users === undefined) {
-            // we visited all docs in the collection
-            //console.log("Users", users[0]);
-            console.log("users === undefined");
-
-            res.send({
-                statusCode: 500,
-                loginErr: 'ERROR!!!'
-            });
-            return;
-        } else {
-            console.log("else");
-            console.log(users);
-            //console.log("DOC", users[0]);
-            if (user === users[0].username) {
+        if (users && users.length >= 1) {
+            if (users[0].username === user) {
                 console.log("user === users[0].username");
 
                 // if (loginDetails.password === doc.password) {
@@ -166,6 +151,19 @@ app.post('/login', function(req, res) {
                     }
                 });
             }
+        } else if (!users && users.length === 0) {
+
+            console.log("users undefined")
+            // res.send({
+            //     statusCode: 500,
+            //     loginErr: 'ERROR!!!'
+            // });
+
+        } else {
+            res.send({
+                statusCode: 404,
+                loginErr: 'ERROR!!!'
+            });
         }
     });
 });
