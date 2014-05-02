@@ -143,7 +143,6 @@ app.post('/login', function(req, res) {
             if (name == user) {
                 console.log("user === users[0].username");
 
-                // if (loginDetails.password === doc.password) {
                 res.send({
                     statusCode: 200,
                     msg: 'successful',
@@ -152,7 +151,7 @@ app.post('/login', function(req, res) {
                     }
                 });
             }
-        } else if (!users || users.length === 0) {
+        } else if (users.length === 0) {
 
             console.log("users undefined")
             res.send({
