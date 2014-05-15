@@ -134,26 +134,25 @@ app.post('/login', function(req, res) {
 
     db.admin.find({
         'username': user,
-        'password': password
+        'password': pass
     }, function(err, users) {
         console.log("err", err)
         console.log("user", users)
 
         if (users.length >= 1) {
             var name = users[0].username;
-            if (name === user) {
+            var password = users[0].password;
+
+            if (name === user && pass === password) {
                 console.log("user === users[0].username");
 
-                var pass = users[0].password;
-                if (pass === pasword) {
-                    res.send({
-                            statusCode: 200,
-                            msg: 'successful',
-                            payload: {
-                                userData: users[0]
-                            }
-                        }
-                    });
+                res.send({
+                    statusCode: 200,
+                    msg: 'successful',
+                    payload: {
+                        userData: users[0]
+                    }
+                });
             }
         } else if (users.length === 0) {
 
