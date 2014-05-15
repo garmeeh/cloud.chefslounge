@@ -141,19 +141,19 @@ app.post('/login', function(req, res) {
 
         if (users.length >= 1) {
             var name = users[0].username;
-            var pass = users[0].password;
-            if (name === user && pass === pasword) {
+            if (name === user) {
                 console.log("user === users[0].username");
 
-
-
-                res.send({
-                    statusCode: 200,
-                    msg: 'successful',
-                    payload: {
-                        userData: users[0]
-                    }
-                });
+                var pass = users[0].password;
+                if (pass === pasword) {
+                    res.send({
+                            statusCode: 200,
+                            msg: 'successful',
+                            payload: {
+                                userData: users[0]
+                            }
+                        }
+                    });
             }
         } else if (users.length === 0) {
 
