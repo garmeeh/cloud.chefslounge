@@ -129,7 +129,7 @@ app.post('/login', function(req, res) {
     var data = req.body;
 
     var user = data.username;
-
+    var pass = data.password;
     console.log(user);
 
     db.admin.find({
