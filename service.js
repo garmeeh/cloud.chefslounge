@@ -140,7 +140,7 @@ app.post('/login', function(req, res) {
 
         if (users.length >= 1) {
             var name = users[0].username;
-            if (name == user) {
+            if (name === user) {
                 console.log("user === users[0].username");
 
                 res.send({
